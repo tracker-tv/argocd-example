@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+if ! [ -e /etc/tracker-tv-do.conf ]; then
+  if tty >/dev/null; then
+    export TTYOPTS=-it
+  else
+    export TTYOPTS=
+  fi
+
+  arch=$([ "$(arch)" = "x86_64" ] && echo "amd64" || echo "arm64")
+  docker run --rm $TTYOPTS -w /opt -v /var/run/docker.sock:/var/run/docker.sock -e DIGITALOCEAN_ACCESS_TOKEN -v $PWD:/opt ghcr.io/tracker-tv/do-$arch:latest bin/do
+
+  exit
+fi
+
+cluster_name=doks
+
+doctl kubernetes cluster kubeconfig save "$cluster_name"
+
+kubectl apply -f k8s/argocd/argocd.k8s.yml
