@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-example
+  labels:
+    app: argocd-example
+spec:
+  selector:
+    app: argocd-example
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argocd-example
+  labels:
+    account: argocd-example
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-example
+  labels:
+    app: argocd-example
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: argocd-example
+  template:
+      metadata:
+        labels:
+          app: argocd-example
+      spec:
+        containers:
+          - name: argocd-example
+            image: ghcr.io/tracker-tv/argocd-example:latest
+            ports:
+            - containerPort: 8080
