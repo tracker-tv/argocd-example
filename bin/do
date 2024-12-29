@@ -20,3 +20,4 @@ cluster_name=doks
 doctl kubernetes cluster kubeconfig save "$cluster_name"
 
 kubectl apply -f k8s/argocd/application.k8s.yml
+kubectl rollout restart deploy argocd-example
