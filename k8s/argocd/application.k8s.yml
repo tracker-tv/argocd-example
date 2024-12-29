@@ -11,7 +11,7 @@ spec:
   source:
     path: k8s/manifests
     repoURL: https://github.com/tracker-tv/argocd-example
-    targetRevision: HEAD
+    targetRevision: main
   syncPolicy:
     automated: {}
     syncOptions:

@@ -19,4 +19,9 @@ cluster_name=doks
 
 doctl kubernetes cluster kubeconfig save "$cluster_name"
 
-kubectl apply -f k8s/argocd/argocd.k8s.yml
+git_rev=$(git rev-parse HEAD)
+images="ghcr.io/tracker-tv/argocd-example:$git_rev"
+
+ytt --data-value images.argocd_example=$images -f k8s/argocd/argocd-example.k8s.yml > k8s/manifests/argocd-example.k8s.yml
+
+kubectl apply -f k8s/argocd/application.k8s.yml
