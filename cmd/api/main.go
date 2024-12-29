@@ -16,9 +16,10 @@ func main() {
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := []Todo{
-			{1, "Test argocd deployment", false},
+			{1, "Test argocd deployment", true},
 			{2, "Create a new project", false},
 			{3, "Create a new project", false},
+			{4, "Create a new project", false},
 		}
 		js, err := json.MarshalIndent(data, "", "\t")
 		if err != nil {
