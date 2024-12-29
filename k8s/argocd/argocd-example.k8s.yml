@@ -1,3 +1,4 @@
+#@ load("@ytt:data", "data")
 apiVersion: v1
 kind: Service
 metadata:
@@ -39,7 +40,8 @@ spec:
       spec:
         containers:
           - name: argocd-example
-            image: ghcr.io/tracker-tv/argocd-example:latest
+            image: #@ data.values.images.argocd_example
+            imagePullPolicy: "IfNotPresent"
             ports:
               - containerPort: 8080
             resources:
