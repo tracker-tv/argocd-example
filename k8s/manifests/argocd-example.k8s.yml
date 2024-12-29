@@ -41,4 +41,13 @@ spec:
           - name: argocd-example
             image: ghcr.io/tracker-tv/argocd-example:latest
             ports:
-            - containerPort: 8080
+              - containerPort: 8080
+            resources:
+              requests:
+                  cpu: 100m
+                  memory: 64Mi
+              limits:
+                  cpu: 200m
+                  memory: 128Mi
+        nodeSelector:
+          beta.kubernetes.io/instance-type: s-2vcpu-2gb
