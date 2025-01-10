@@ -43,6 +43,9 @@ spec:
             imagePullPolicy: "Always"
             ports:
               - containerPort: 8080
+            env:
+              - name: TEST_ENV
+                value: "test"
             resources:
               requests:
                   cpu: 100m
